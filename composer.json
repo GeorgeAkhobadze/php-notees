@@ -1,0 +1,11 @@
+{
+    "name": "saintgeorge/demo",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Giorgi Akhobadze",
+            "email": "axobadzegiorgi5@gmail.com"
+        }
+    ],
+    "require": {}
+}
