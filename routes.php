@@ -3,6 +3,7 @@
 $router->get('/', 'index.php');
 $router->get('/about', 'about.php');
 $router->get('/contact', 'contact.php');
+
 $router->get('/notes', 'notes/index.php')->only('auth');
 $router->get('/note', 'notes/show.php')->only('auth');
 $router->delete('/note', 'notes/destroy.php')->only('auth');
@@ -24,3 +25,6 @@ $router->get('/storage', 'storage/index.php')->only('auth');
 
 $router->get('/users', 'users/index.php')->only('auth');
 $router->get('/user', 'users/show.php')->only('auth');
+$router->post('/user', 'users/request.php')->only('auth');
+$router->patch('/user', 'users/add.php')->only('auth');
+$router->delete('/user', 'users/destroy.php')->only('auth');

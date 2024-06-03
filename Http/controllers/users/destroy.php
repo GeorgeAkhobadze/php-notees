@@ -5,11 +5,9 @@ use Core\Database;
 use Core\Session;
 
 $db = App::resolve(Database::class);
+$user = Session::getCurrentUser();
 
 
-$user = $db->query('select * from users where id = :id', [
-    'id' => $_GET['id']
-])->findOrFail();
 
 $friendStatus = $db->query('SELECT *
 FROM friendships
@@ -20,10 +18,11 @@ OR (user = :friend and friend = :user)', [
 ])->find();
 
 
+authorize($user['id'] === $friendStatus['user'] || $user['id'] === $friendStatus['friend']);
 
-view("users/show.view.php", [
-    'heading' => 'User Profile',
-    'user' => $user,
-    'friendStatus' => $friendStatus
+$db->query('delete from friendships where id = :id', [
+    'id' => $friendStatus['id']
 ]);
 
+redirect('/user?id=' . $_GET['id']);
+exit();
