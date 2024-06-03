@@ -71,7 +71,7 @@ class Router
         return $_SERVER['HTTP_REFERER'];
     }
 
-    protected function abort($code = 404)
+    public function abort($code = 404)
     {
         http_response_code($code);
 

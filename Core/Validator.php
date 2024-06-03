@@ -2,7 +2,7 @@
 
 namespace Core;
 
-class Validator {   
+class Validator {
     public static function string($value, $min = 1, $max = INF) {
         $value = trim($value);
         
@@ -26,7 +26,18 @@ class Validator {
         } else {
             return false;
         }
+    }
 
+    public static function userExists($userId) {
+        $db = App::resolve(Database::class);
+        $users = $db->query('select * from users where id = :id;', [
+            'id' => $userId
+        ])->get();
+        if(!$users) {
+            return  false;
+        } else {
+            return true;
+        }
     }
 
 }
