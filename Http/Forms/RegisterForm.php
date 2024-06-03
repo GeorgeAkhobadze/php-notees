@@ -5,11 +5,7 @@ namespace Http\Forms;
 use Core\ValidationException;
 use Core\Validator;
 
-class RegisterForm {
-
-    protected $errors = [];
-
-    public array $attributes;
+class RegisterForm extends Form {
 
     public function __construct($attributes) {
         $this->attributes = $attributes;

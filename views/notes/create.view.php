@@ -5,7 +5,7 @@
   <main>
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
   <div class="space-y-12">
     <div class="border-b border-gray-900/10 pb-12">
     <h1>Create a Note</h1>
@@ -20,6 +20,10 @@
           <?php if (isset($errors['body'])) : ?>
             <p class="text-red-500 text-xs mt-2"><?= $errors['body'] ?></p>
           <?php endif; ?>
+            <?php if (isset($errors['image'])) : ?>
+                <p class="text-red-500 text-xs mt-2"><?= $errors['image'] ?></p>
+            <?php endif; ?>
+            <input type="file" name="fileToUpload" id="fileToUpload">
         </div>
 
 

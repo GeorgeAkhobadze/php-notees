@@ -3,29 +3,14 @@
 namespace Http\Forms;
 
 use Core\ValidationException;
-use Core\Validator;
 
-class LoginForm extends Form{
+abstract class Form {
 
-    public function __construct($attributes) {
+    protected $errors = [];
+    public array $attributes;
 
-        $this->attributes = $attributes;
-
-        if (!Validator::email($attributes['email'])) {
-            $this->errors['email'] = 'Invalid Credentials.';
-        }
-
-        if (!Validator::string($attributes['password'])) {
-            $this->errors['password'] = 'Invalid Credentials Pass.';
-        }
-    }
-
-    /**
-     * @throws ValidationException
-     */
     public static function validate($attributes) {
         $instance = new static($attributes);
-
         return $instance->failed() ? $instance->throw() : $instance;
     }
 
