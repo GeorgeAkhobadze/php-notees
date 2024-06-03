@@ -3,11 +3,15 @@
 use Core\App;
 use Core\Database;
 use Core\Session;
+use Http\Forms\FriendForm;
+
 
 $db = App::resolve(Database::class);
 $user = Session::getCurrentUser();
 
-//dd($_SERVER['REQUEST_METHOD']);
+$form = FriendForm::validate($attributes = [
+    'userId' => $_GET['id']
+]);
 
 $db->query('INSERT INTO friendships(user, friend, status) VALUES(:user, :friend, :status)', [
     'user' => $user['id'],

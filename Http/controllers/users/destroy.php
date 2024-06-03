@@ -3,11 +3,10 @@
 use Core\App;
 use Core\Database;
 use Core\Session;
+use Http\Forms\FriendForm;
 
 $db = App::resolve(Database::class);
 $user = Session::getCurrentUser();
-
-
 
 $friendStatus = $db->query('SELECT *
 FROM friendships

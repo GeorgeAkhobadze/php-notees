@@ -3,13 +3,16 @@
 use Core\App;
 use Core\Database;
 use Core\Session;
+use Http\Forms\FriendForm;
 
 $db = App::resolve(Database::class);
 $user = Session::getCurrentUser();
-//update notes set body = :body where id = :id
-$friendStatus = $db->query('SELECT * FROM friendships WHERE 
-    (user = :user AND friend = :friend AND status = "pending") OR 
-    (user = :friend AND friend = :user AND status = "pending")', [
+
+$friendStatus = $db->query('SELECT * FROM friendships WHERE  status = "pending" AND
+    (
+        (user = :user AND friend = :friend ) OR 
+        (user = :friend AND friend = :user )
+        )', [
     'user' => Session::getCurrentUser()['id'],
     'friend' => $_GET['id']
 ])->find();

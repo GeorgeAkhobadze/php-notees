@@ -19,32 +19,7 @@ class RegisterForm extends Form {
         }
 
         if(!$attributes['confirmpassword'] || !Validator::isEqual($attributes['password'], $attributes['confirmpassword'])) {
-            $this->errors['confirmpassword'] = 'Passwords do not matchfffF.';
+            $this->errors['confirmpassword'] = 'Passwords do not match.';
         }
-    }
-
-    public static function validate($attributes) {
-        $instance = new static($attributes);
-
-
-        return $instance->failed() ? $instance->throw() : $instance;
-    }
-
-    public function throw() {
-        validationException::throw($this->errors, $this->attributes);
-    }
-
-    public function failed() {
-        return count($this->errors);
-    }
-
-    public function errors() {
-        return $this->errors;
-    }
-
-    public function error($field, $message) {
-        $this->errors[$field] = $message;
-
-        return $this;
     }
 }
