@@ -23,7 +23,7 @@
             <?php if (isset($errors['image'])) : ?>
                 <p class="text-red-500 text-xs mt-2"><?= $errors['image'] ?></p>
             <?php endif; ?>
-            <input type="file" name="fileToUpload" id="fileToUpload">
+            <input class="mt-3" type="file" name="fileToUpload" id="fileToUpload">
         </div>
 
 
