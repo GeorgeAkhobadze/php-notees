@@ -24,7 +24,7 @@ $router->delete('/session', 'session/destroy.php')->only('auth');
 $router->get('/storage', 'storage/index.php')->only('auth');
 
 $router->get('/users', 'users/index.php')->only('auth');
-$router->post('/users', 'users/respond.php')->only('auth');
+$router->post('/users', 'users/add.php')->only('auth');
 $router->delete('/users', 'users/destroy.php')->only('auth');
 
 $router->get('/user', 'users/show.php')->only('auth');

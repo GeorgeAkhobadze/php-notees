@@ -7,6 +7,9 @@ use Http\Forms\FriendForm;
 
 $db = App::resolve(Database::class);
 $user = Session::getCurrentUser();
+$router = new \Core\Router();
+$friendId = $_GET['id'] ?? $_POST['id'];
+
 
 $friendStatus = $db->query('SELECT count(*) FROM friendships WHERE  status = "pending" AND
     (
@@ -14,19 +17,17 @@ $friendStatus = $db->query('SELECT count(*) FROM friendships WHERE  status = "pe
         (user = :friend AND friend = :user )
         )', [
     'user' => Session::getCurrentUser()['id'],
-    'friend' => $_GET['id']
+    'friend' => $friendId
 ])->find();
-
-
 
 if ($friendStatus['count(*)']) {
     $db->query('UPDATE friendships SET status = "accepted" WHERE 
         (user = :user AND friend = :friend AND status = "pending") OR 
         (user = :friend AND friend = :user AND status = "pending")', [
         'user' => Session::getCurrentUser()['id'],
-        'friend' => $_GET['id']
+        'friend' => $friendId
     ]);
 }
 
-redirect('/user?id=' . $_GET['id']);
+redirect($router->previousUrl());
 exit();

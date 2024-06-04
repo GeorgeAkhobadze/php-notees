@@ -17,7 +17,7 @@
                                 <?php if ($friend['status'] == 'pending' && $friend['friend'] == $currentUser['id']) : ?>
                                     <form method="POST" action="/users">
                                         <input type="hidden" value="<?= $friend['user']  ?>" name="id">
-                                        <button >Confirm</button>
+                                        <button>Confirm</button>
                                         <button name="_method" value="DELETE">Remove</button>
                                     </form>
                                 <?php else : ?>
