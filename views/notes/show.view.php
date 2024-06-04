@@ -7,7 +7,6 @@
         <a href="/notes" class="text-blue-500 underline mb-6">Go back</a>
       </p>
       <h2><?= htmlspecialchars($note['body']) ?></h2>
-        <img alt="" src="/storage?name=<?= $note['image'] ?>"/>
 
         <footer class="mt-6">
             <a href="/note/edit?id=<?= $note['id'] ?>" class="text-gray-500 border border-current px-4 py-2 rounded">Edit</a>
