@@ -13,8 +13,13 @@ $users = $db->query('select * from users where id != :id;', [
     'id' => $user['id']
 ])->get();
 
+$friends = $db->query('select * from friendships where user = :id or friend = :id;', [
+    'id' => $user['id']
+])->get();
 
 view("users/index.view.php", [
 'heading' => 'User List',
-    'users' => $users
+    'users' => $users,
+    'friends' => $friends,
+    'currentUser' => $user,
 ]);
