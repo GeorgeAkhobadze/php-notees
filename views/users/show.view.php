@@ -34,12 +34,14 @@ $sender = isset($friendStatus) && $friendStatus !== false && $friendStatus['user
         </form>
         <?php endif; ?>
         <div style="display: flex; flex-direction: column; align-self: flex-start">
+            <?php if ($friendNotes) : ?>
             <h3><b>Notes</b></h3>
             <ul style="list-style: initial">
-                <?php foreach ($friendNotes as $note) : ?>
-                    <li><?= $note['body'] ?></li>
-                <?php endforeach ?>
+                    <?php foreach ($friendNotes as $note) : ?>
+                        <li><?= $note['body'] ?></li>
+                    <?php endforeach ?>
             </ul>
+            <?php endif; ?>
         </div>
     </div>
 
