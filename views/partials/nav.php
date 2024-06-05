@@ -36,9 +36,8 @@
 <!--                </button>-->
                   <?php if ($_SESSION['user'] ?? false) : ?>
                   <a href="/profile">
-                      <img alt="" src=<?= "/storage?name={$_SESSION['user']['image']}" ?>/>
+                      <button class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Profile</button>
                   </a>
-
                   <?php else : ?>
                       <a href="/register" class="<?= urlIs("/register") ? "bg-gray-900 text-white" : "text-gray-300" ?> hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Sign up</a>
                       <a href="/login" class="<?= urlIs("/login") ? "bg-gray-900 text-white" : "text-gray-300" ?> hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Log in</a>
