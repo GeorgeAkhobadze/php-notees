@@ -25,16 +25,18 @@ OR (user = :friend and friend = :user)', [
     'friend' => $_GET['id']
 ])->find();
 
-if($friendStatus['status'] === 'accepted') {
+if($friendStatus && $friendStatus['status'] === 'accepted') {
     $friendNotes = $db->query('select * from notes where user_id = :id', [
         'id' => $_GET['id']
     ])->get();
+
 };
 
+//var_dump($friendNotes);
 view("users/show.view.php", [
     'heading' => 'User Profile',
     'user' => $user,
     'friendStatus' => $friendStatus,
-    'friendNotes' => $friendNotes
+    'friendNotes' => $friendNotes ?? null
 ]);
 
