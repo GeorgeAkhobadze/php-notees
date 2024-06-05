@@ -1,0 +1,47 @@
+.posts-container {
+    max-width: 468px;
+    margin: 0 auto;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgb(219, 219, 219);
+}
+
+.post-author-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.post-header {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    font-family: -apple-system, sans-serif;
+}
+
+.post-date,
+.seperator-dot{
+    color: #737373;
+}
+
+.post-image {
+    width: 100%;
+    max-height: 468px;
+    height: 100%;
+    object-fit: cover;
+}
+
+

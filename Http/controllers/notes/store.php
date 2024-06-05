@@ -22,7 +22,7 @@ $title = handleFileUpload($form);
 $db->query('INSERT INTO notes(body, user_id, image) VALUES(:body, :user_id, :image)', [
     'body' => $_POST['body'],
     'user_id' => $user['id'],
-    'image' => 'googoo'
+    'image' => $title
 ]);
 
 redirect('/notes');
