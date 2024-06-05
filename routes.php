@@ -21,7 +21,7 @@ $router->get('/login', 'session/create.php')->only('guest');
 $router->post('/login', 'session/store.php')->only('guest');
 $router->delete('/session', 'session/destroy.php')->only('auth');
 
-$router->get('/storage', 'storage/index.php')->only('auth');
+$router->get('/storage', 'storage/show.php')->only('auth');
 
 $router->get('/users', 'users/index.php')->only('auth');
 $router->post('/users', 'users/add.php')->only('auth');
@@ -33,3 +33,4 @@ $router->patch('/user', 'users/add.php')->only('auth');
 $router->delete('/user', 'users/destroy.php')->only('auth');
 
 $router->get('/profile', 'profile/index.php')->only('auth');
+$router->post('/profile', 'profile/update.php')->only('auth');

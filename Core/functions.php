@@ -54,3 +54,19 @@ function redirect($path) {
 function old($key, $default = '') {
     return Core\Session::get('old')[$key] ?? $default;
 }
+
+function handleFileUpload($form, $fileInputName = 'fileToUpload', $destinationPath = 'storage/images/') {
+    $title = null;
+
+    if ($form->hasFile) {
+        $title = time() . ".jpg";
+        $target_file = base_path($destinationPath) . $title;
+
+        if (!move_uploaded_file($_FILES[$fileInputName]["tmp_name"], $target_file)) {
+            $form->error('image', 'Error uploading file.')->throw();
+
+        }
+    }
+
+    return $title;
+}

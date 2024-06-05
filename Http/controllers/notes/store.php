@@ -17,19 +17,12 @@ $form = NoteForm::validate($attributes = [
     'image' => $_FILES['fileToUpload']
 ]);
 
-$title = null;
-if ($form->hasFile) {
-    $title = time() . ".jpg";
-    $target_file = base_path('storage/images/') . $title;
-    if (!move_uploaded_file($_FILES['fileToUpload']["tmp_name"], $target_file)){
-        $form->error('image', 'Error uploading file.')->throw();
-    }
-}
+$title = handleFileUpload($form);
 
 $db->query('INSERT INTO notes(body, user_id, image) VALUES(:body, :user_id, :image)', [
     'body' => $_POST['body'],
     'user_id' => $user['id'],
-    'image' => $title
+    'image' => 'googoo'
 ]);
 
 redirect('/notes');

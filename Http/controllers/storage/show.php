@@ -1,12 +1,19 @@
 <?php
-// open the file in a binary mode
-$name = base_path("/storage/images/". $_GET['name']);
+$name = base_path("/storage/images/" . $_GET['name']);
 $fp = fopen($name, 'rb');
 
-// send the right headers
-header("Content-Type: image/jpg");
+$extension = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+
+switch ($extension) {
+    case 'jpg':
+        header("Content-Type: image/jpeg");
+        break;
+    case 'svg':
+        header("Content-Type: image/svg+xml");
+        break;
+}
+
 header("Content-Length: " . filesize($name));
 
-// dump the picture and stop the script
 fpassthru($fp);
 exit;

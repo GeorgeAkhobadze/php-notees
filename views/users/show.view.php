@@ -7,11 +7,11 @@ $sender = isset($friendStatus) && $friendStatus !== false && $friendStatus['user
 ?>
 
 <main>
-    <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+    <div style="display: flex; flex-direction: column; align-items: center;" class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
         <p class="mb-6">
             <a href="/users" class="text-blue-500 underline mb-6">Go back</a>
         </p>
-
+        <img style="width: 128px; height: 128px; border-radius: 100px; object-fit: cover" alt="" src="/storage?name=<?= $user['image'] ?>"/>
         <h2><b>Username: </b><?= htmlspecialchars($user['username']) ?></h2>
         <p><b>Email: </b><?= $user['email'] ?></p>
         <form method="POST" action=<?= "/user?id=" . $user['id']?>>

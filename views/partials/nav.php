@@ -36,7 +36,7 @@
 <!--                </button>-->
                   <?php if ($_SESSION['user'] ?? false) : ?>
                   <a href="/profile">
-                      <img alt="" src=<?= "/storage?name={$_SESSION['user']['image']}.svg" ?>/>
+                      <img alt="" src=<?= "/storage?name={$_SESSION['user']['image']}" ?>/>
                   </a>
 
                   <?php else : ?>
