@@ -29,7 +29,6 @@ if($friendStatus && $friendStatus['status'] === 'accepted') {
     $friendNotes = $db->query('select * from notes where user_id = :id', [
         'id' => $_GET['id']
     ])->get();
-
 };
 
 //var_dump($friendNotes);
