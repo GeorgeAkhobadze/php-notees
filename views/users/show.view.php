@@ -27,13 +27,20 @@ $sender = isset($friendStatus) && $friendStatus !== false && $friendStatus['user
                 <button type="submit" name="_method" value="DELETE" class="text-red-500 text-xs mt-2">Decline</button>
             <?php endif; ?>
         </form>
-
         <?php if ($friendStatus && $friendStatus['status'] === 'accepted') : ?>
             <p><b>Friendship status: </b>Accepted</p>
         <form method="POST" action=<?= "/user?id=" . $user['id']?>>
             <button type="submit" name="_method" value="DELETE" class="text-red-500 text-xs mt-2">Unfriend</button>
         </form>
         <?php endif; ?>
+        <div style="display: flex; flex-direction: column; align-self: flex-start">
+            <h3><b>Notes</b></h3>
+            <ul style="list-style: initial">
+                <?php foreach ($friendNotes as $note) : ?>
+                    <li><?= $note['body'] ?></li>
+                <?php endforeach ?>
+            </ul>
+        </div>
     </div>
 
 
