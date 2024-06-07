@@ -19,7 +19,10 @@ $form = ProfileForm::validate($attributes = [
 
 $title = handleFileUpload($form, 'profilePicture');
 
-unlink(base_path("storage/images/{$userData['image']}"));
+if($userData['image'] !== 'user_profile.svg') {
+    unlink(base_path("storage/images/{$userData['image']}"));
+}
+
 
 $db->query('update users set image = :image where id = :id;', [
     'image' => $title,

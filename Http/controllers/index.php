@@ -30,7 +30,6 @@ ORDER BY n.created_at;', [
     ])->get();
 }
 
-
 view("index.view.php", [
     'heading' => 'Home',
     'posts' => $posts ?? null
