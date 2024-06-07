@@ -22,7 +22,9 @@ WHERE n.user_id IN (
     WHERE
         (user = :user OR friend = :user)
       AND status = "accepted"
+    
 )
+OR n.user_id = :user
 ORDER BY n.created_at;', [
         'user' => $user['id']
     ])->get();
