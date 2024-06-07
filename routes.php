@@ -34,3 +34,10 @@ $router->delete('/user', 'users/destroy.php')->only('auth');
 
 $router->get('/profile', 'profile/index.php')->only('auth');
 $router->post('/profile', 'profile/update.php')->only('auth');
+
+$router->get('/chat', 'chat/index.php')->only('auth');
+
+$router->get('/test', 'test/test.php');
+$router->post('/test', 'test/test2.php');
+
+$router->get('/chatroom', 'chatroom/index.php')->only('auth');
