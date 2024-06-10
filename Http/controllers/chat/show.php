@@ -18,12 +18,13 @@ $isMember = $db->query('select * from chatroom_members where user_id = :userId a
 ])->find();
 
 
-$messages = $isMember ? $db->query('SELECT * 
+$messages = $isMember ? $db->query('SELECT chatroom_texts.*, users.id, users.username, users.image userImage
 FROM chatroom_texts 
-WHERE chatroom_id = :id 
-ORDER BY created_at DESC 
+JOIN users ON users.id = chatroom_texts.user_id 
+WHERE chatroom_texts.chatroom_id = :chatroomId 
+ORDER BY chatroom_texts.created_at DESC 
 LIMIT 10', [
-    'id' => $_REQUEST['chatroomId']
+    'chatroomId' => $_REQUEST['chatroomId']
 ])->get() : false;
 
 $data['messages'] = $messages;
