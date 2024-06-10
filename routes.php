@@ -36,8 +36,9 @@ $router->get('/profile', 'profile/index.php')->only('auth');
 $router->post('/profile', 'profile/update.php')->only('auth');
 
 $router->get('/chat', 'chat/index.php')->only('auth');
+$router->post('/chat', 'chat/join.php')->only('auth');
 
-$router->get('/test', 'test/test.php');
-$router->post('/test', 'test/test2.php');
+$router->get('/message', 'chat/show.php')->only('auth');
+$router->post('/message', 'chat/send.php')->only('auth');
 
 $router->get('/chatroom', 'chatroom/index.php')->only('auth');
