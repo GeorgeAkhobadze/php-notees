@@ -113,6 +113,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <main style="padding-top: 16px">
+    <?php if(isset($isMember) && $isMember) : ?>
     <div class="chat-container" style="margin: 0 auto">
         <div class="chat-messages" id="chat-messages">
         </div>
@@ -121,6 +122,13 @@
             <button id="send-message">Send</button>
         </div>
     </div>
+
+    <?php else : ?>
+    <div style="margin: 0 auto; max-width: 600px; display: flex; flex-direction: column; align-items: center; justify-content: center">
+        Join the chatroom
+        <button class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" id="join-chatroom">Join</button>
+    </div>
+    <?php endif; ?>
 
     <script src="js/chat.js"></script>
 </main>
