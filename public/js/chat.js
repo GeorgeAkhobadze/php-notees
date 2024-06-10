@@ -50,9 +50,9 @@ function getMessages() {
                 });
                 chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
 
-                // if (!messagesInterval) {
-                //     messagesInterval = setInterval(getMessages, 1000);
-                // }
+                if (!messagesInterval) {
+                    messagesInterval = setInterval(getMessages, 1000);
+                }
             } else if (messagesInterval) {
                 clearInterval(messagesInterval);
                 messagesInterval = null;
