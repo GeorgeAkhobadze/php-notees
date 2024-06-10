@@ -16,8 +16,6 @@ $isMember = $db->query('select * from chatroom_members where user_id = :userId a
     'chatroomId' => $chatroom['id']
 ])->find();
 
-
-
 view("chat/index.view.php", [
     'heading' => $chatroom['name'],
     'errors' => [],
