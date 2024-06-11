@@ -27,7 +27,27 @@ LIMIT 10', [
     'chatroomId' => $_REQUEST['chatroomId']
 ])->get() : false;
 
+$data['newMessages'] = [];
+
+
+if(isset($_REQUEST['date'])) {
+    $newMessages = $db->query('SELECT chatroom_texts.*, users.id, users.username, users.image AS userImage
+FROM chatroom_texts
+JOIN users ON users.id = chatroom_texts.user_id
+WHERE chatroom_texts.chatroom_id = :chatroomId
+AND chatroom_texts.created_at > :date
+ORDER BY chatroom_texts.created_at DESC', [
+        'chatroomId' => $_REQUEST['chatroomId'],
+        'date' => $_REQUEST['date']
+    ])->get();
+
+    $data['newMessages'] = $newMessages;
+}
+
+
 $data['messages'] = $messages;
+
+
 
 $data['userId'] = $user['id'];
 
