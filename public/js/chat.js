@@ -1,6 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 const chatMessagesDiv = document.getElementById('chat-messages');
+const chatMessagesContainer = document.getElementById('chat-messages-wrapper');
 const sendButton = document.getElementById("send-message");
 const chatInput = document.getElementById("chat-input");
 const joinButton = document.getElementById('join-chatroom');
@@ -8,12 +9,11 @@ const joinButton = document.getElementById('join-chatroom');
 let isMember = null;
 let messagesInterval = null;
 let lastMessageTimestamp = null;
+let messagesArray = [];
 
 function getMessages(date) {
-    console.log(date)
-
     axios.get('/message', {
-        params: { chatroomId: id, date },
+        params: { chatroomId: id, date: date },
         headers: { 'Content-Type': 'application/json' }
     })
         .then(handleResponse)
@@ -22,15 +22,15 @@ function getMessages(date) {
 
 function handleResponse(res) {
     const { messages, userId } = res.data;
-    console.log(messages)
+
     isMember = Boolean(messages);
     lastMessageTimestamp = messages[0]['created_at'];
-
-
+    messagesArray = [...messages, ...messagesArray]
+    console.log(messagesArray);
     if (isMember && chatMessagesDiv) {
         chatMessagesDiv.innerHTML = '';
-        renderMessages(messages.reverse(), userId);
-        chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+        renderMessages(messagesArray, userId);
+        chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
 
         if (!messagesInterval && lastMessageTimestamp) {
             messagesInterval = setInterval(() => getMessages(lastMessageTimestamp), 5000);
@@ -46,7 +46,9 @@ function sendMessage() {
     const message = chatInput.value.trim();
     if (message.length > 0) {
         axios.post('/message', { message, chatroomId: id })
-            .then(getMessages)
+            .then(() => {
+                getMessages(lastMessageTimestamp);
+            })
             .catch(error => console.error(error));
         chatInput.value = '';
     }
@@ -102,5 +104,13 @@ function joinChatroom() {
 }
 
 joinButton?.addEventListener('click', joinChatroom);
+
+function logScrolledAmount() {
+    const scrolledAmount = chatMessagesContainer.scrollTop;
+    console.log('Scrolled amount:', scrolledAmount);
+}
+
+// Add event listener to the chat-messages div for the scroll event
+chatMessagesContainer.addEventListener('scroll', logScrolledAmount);
 
 getMessages();
