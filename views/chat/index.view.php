@@ -23,16 +23,17 @@
 
     .chat-messages {
         flex: 1;
-        padding: 20px;
         overflow: hidden;
-        border-bottom: 1px solid #dddddd;
         display: flex;
         flex-direction: column-reverse;
         align-items: flex-start;
     }
 
     #chat-messages-wrapper {
+        border-bottom: 1px solid #dddddd;
         overflow: scroll;
+        height: 100%;
+        padding: 20px;
     }
 
     .chat-message {

@@ -17,13 +17,26 @@
         'chatroomId' => $_REQUEST['chatroomId']
     ])->find();
 
-    if(isset($_REQUEST['date'])) {
+    if(isset($_REQUEST['date']) && $_REQUEST['isLastMessage'] == 'false') {
         $newMessages = $db->query('SELECT chatroom_texts.*, users.id, users.username, users.image AS userImage
     FROM chatroom_texts
     JOIN users ON users.id = chatroom_texts.user_id
     WHERE chatroom_texts.chatroom_id = :chatroomId
     AND chatroom_texts.created_at > :date
     ORDER BY chatroom_texts.created_at DESC', [
+            'chatroomId' => $_REQUEST['chatroomId'],
+            'date' => $_REQUEST['date']
+        ])->get();
+
+        $data['messages'] = $newMessages;
+    } else if (isset($_REQUEST['date']) && $_REQUEST['isLastMessage'] == 'true') {
+        $newMessages = $db->query('SELECT chatroom_texts.*, users.id, users.username, users.image AS userImage
+    FROM chatroom_texts
+    JOIN users ON users.id = chatroom_texts.user_id
+    WHERE chatroom_texts.chatroom_id = :chatroomId
+    AND chatroom_texts.created_at < :date
+    ORDER BY chatroom_texts.created_at DESC
+    LIMIT 10', [
             'chatroomId' => $_REQUEST['chatroomId'],
             'date' => $_REQUEST['date']
         ])->get();
@@ -45,3 +58,4 @@
     $data['userId'] = $user['id'];
 
     echo json_encode($data, JSON_UNESCAPED_UNICODE);
+

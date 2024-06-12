@@ -1,0 +1,6 @@
+
+class Chat {
+    constructor() {
+    }
+
+}
