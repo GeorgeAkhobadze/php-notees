@@ -24,11 +24,15 @@
     .chat-messages {
         flex: 1;
         padding: 20px;
-        overflow-y: auto;
+        overflow: hidden;
         border-bottom: 1px solid #dddddd;
         display: flex;
-        flex-direction: column;
+        flex-direction: column-reverse;
         align-items: flex-start;
+    }
+
+    #chat-messages-wrapper {
+        overflow: scroll;
     }
 
     .chat-message {
@@ -153,7 +157,9 @@
 <main style="padding-top: 16px">
     <?php if(isset($isMember) && $isMember) : ?>
     <div class="chat-container" style="margin: 0 auto">
-        <div class="chat-messages" id="chat-messages">
+        <div id="chat-messages-wrapper">
+            <div class="chat-messages" id="chat-messages">
+        </div>
         </div>
         <div class="chat-input">
             <input aria-label="chat-input" type="text" id="chat-input" placeholder="Type a message...">
