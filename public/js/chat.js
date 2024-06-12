@@ -4,37 +4,46 @@ const chatMessagesDiv = document.getElementById('chat-messages');
 const chatMessagesContainer = document.getElementById('chat-messages-wrapper');
 const sendButton = document.getElementById("send-message");
 const chatInput = document.getElementById("chat-input");
-const joinButton = document.getElementById('join-chatroom');
 
 let isMember = null;
 let messagesInterval = null;
 let lastMessageTimestamp = null;
 let messagesArray = [];
 
-function getMessages(date) {
+
+
+
+function getMessages(date, isLastMessage = false) {
     axios.get('/message', {
-        params: { chatroomId: id, date: date },
+        params: { chatroomId: id, date: date, isLastMessage },
         headers: { 'Content-Type': 'application/json' }
     })
-        .then(handleResponse)
-        .catch((error) => console.error(error));
+        .then((res) => {
+            if(res.data.messages.length > 0) {
+                handleResponse(res, isLastMessage)
+            }
+        }).catch((error) => alert(error));
 }
 
-function handleResponse(res) {
+function handleResponse(res, isLastMessage) {
     const { messages, userId } = res.data;
 
     isMember = Boolean(messages);
-    lastMessageTimestamp = messages[0]['created_at'];
-    messagesArray = [...messages, ...messagesArray]
-    console.log(messagesArray);
+    if(isLastMessage) {
+        messagesArray = [...messagesArray, ...messages]
+    } else {
+        messagesArray = [...messages, ...messagesArray]
+    }
+    lastMessageTimestamp = messagesArray[0]['created_at'];
+
     if (isMember && chatMessagesDiv) {
         chatMessagesDiv.innerHTML = '';
         renderMessages(messagesArray, userId);
+
         chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
 
         if (!messagesInterval && lastMessageTimestamp) {
             messagesInterval = setInterval(() => getMessages(lastMessageTimestamp), 5000);
-
         }
     } else if (messagesInterval) {
         clearInterval(messagesInterval);
@@ -97,20 +106,20 @@ function createUserInfoDiv(messageContent) {
 
 sendButton?.addEventListener("click", sendMessage);
 
-function joinChatroom() {
-    axios.post('/chat', { chatroomId: id })
-        .then(() => location.reload())
-        .catch(err => alert(err));
-}
-
-joinButton?.addEventListener('click', joinChatroom);
+chatInput?.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        sendMessage();
+    }
+});
 
 function logScrolledAmount() {
     const scrolledAmount = chatMessagesContainer.scrollTop;
-    console.log('Scrolled amount:', scrolledAmount);
+    if(scrolledAmount === 0) {
+        const lastMessageDate = messagesArray[messagesArray.length - 1].created_at
+        getMessages(lastMessageDate, true);
+    }
 }
 
-// Add event listener to the chat-messages div for the scroll event
-chatMessagesContainer.addEventListener('scroll', logScrolledAmount);
+chatMessagesContainer?.addEventListener('scroll', logScrolledAmount);
 
 getMessages();
