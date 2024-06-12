@@ -175,7 +175,7 @@
     </div>
     <?php endif; ?>
 
-    <script src="js/chat.js"></script>
+    <script type="module" src="js/chat/chat.js"></script>
 </main>
 
 <?php require base_path('views/partials/footer.php') ?>
