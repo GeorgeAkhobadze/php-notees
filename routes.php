@@ -13,6 +13,7 @@ $router->patch('/note', 'notes/update.php')->only('auth');
 
 $router->get('/notes/create', 'notes/create.php')->only('auth');
 $router->post('/notes/create', 'notes/store.php')->only('auth');
+$router->post('/notes/like', 'notes/like.php')->only('auth');
 
 $router->get('/register', 'registration/create.php')->only('guest');
 $router->post('/register', 'registration/store.php')->only('guest');
