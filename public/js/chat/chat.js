@@ -27,10 +27,12 @@ async function initializeChat() {
 
 function setupEventListeners() {
     sendButton?.addEventListener("click", () => chatClass.sendMessage(chatInput.value, id).then((res) => {
+        chatInput.value = ''
         renderMessages(res, chatClass.userId, chatMessagesDiv, true)
     }));
     chatInput?.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') chatClass.sendMessage(chatInput.value, id).then((res) => {
+            chatInput.value = ''
             renderMessages(res, chatClass.userId, chatMessagesDiv, true)
         });
     });
@@ -40,9 +42,11 @@ function setupEventListeners() {
             const lastMessageDate = chatClass.messagesArray[chatClass.messagesArray.length - 1].created_at;
             chatClass.getMessages(id, lastMessageDate, true).then((res) => {
                 if (!res) {
-                    x``
+                    document.getElementById('chat-end').style.display = 'flex';
+                } else {
+                    renderMessages(res, chatClass.userId, chatMessagesDiv);
                 }
-                renderMessages(res, chatClass.userId, chatMessagesDiv);
+
             });
         }
     });

@@ -147,6 +147,19 @@
         gap: 6px;
         align-items: center;
     }
+
+    #chat-end {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 6px 0;
+        color: #0c5460;
+        border-top: 1px solid rgba(12, 84, 96, 0.24);
+        border-bottom: 1px solid rgba(12, 84, 96, 0.24);
+        margin-bottom: 6px;
+    }
+
     header {
         display: flex;
     }
@@ -160,6 +173,7 @@
     <?php if(isset($isMember) && $isMember) : ?>
     <div class="chat-container" style="margin: 0 auto">
         <div id="chat-messages-wrapper">
+            <div id="chat-end">No more messages to display</div>
             <div class="chat-messages" id="chat-messages">
         </div>
         </div>
