@@ -3,7 +3,22 @@
 <?php require('partials/banner.php'); ?>
 <style>
     <?php include 'index.css'; ?>
+    .get-post-id-btn {
+        background-color: #f0f0f0; /* default color */
+        color: #000;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    .get-post-id-btn.liked {
+        background-color: #ff0000; /* liked color */
+        color: #fff;
+    }
+
 </style>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <main>
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
         <div class="posts-container">
@@ -28,6 +43,10 @@
                         <p class="post-description">
                             <?= $post['body'] ?>
                         </p>
+                        <div class="like-section">
+                            <button class="get-post-id-btn" data-note-id="<?= $post['id'] ?>" data-liked="<?= $post['liked'] ? 'true' : 'false' ?>" data-like-count=<?= $post['likeCount'] ?>>Like</button>
+                            <div><?= $post['likeCount']?> Likes</div>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             <?php else : ?>
@@ -35,5 +54,6 @@
             <?php endif ?>
         </div>
     </div>
+    <script type="module" src="js/note/like.js"></script>
 </main>
 <?php require('partials/footer.php'); ?>
