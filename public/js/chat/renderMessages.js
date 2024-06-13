@@ -32,10 +32,15 @@ export function createUserInfoDiv(messageContent) {
     return userInfoDiv;
 }
 
-export function renderMessages(messages, userId, chatMessagesDiv) {
-    messages.forEach(messageContent => {
+export function renderMessages(messages, userId, chatMessagesDiv, sent) {
+    messages && messages.forEach(messageContent => {
         const messageDiv = createMessageDiv(messageContent, userId);
-        chatMessagesDiv.appendChild(messageDiv);
+        if(sent) {
+            chatMessagesDiv.prepend(messageDiv);
+        } else {
+            chatMessagesDiv.append(messageDiv);
+        }
     });
+    return messages;
 }
 

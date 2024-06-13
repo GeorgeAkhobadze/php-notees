@@ -16,7 +16,9 @@ async function initializeChat() {
         renderMessages(chatClass.messagesArray, chatClass.userId, chatMessagesDiv);
 
         if (chatClass.messagesArray?.[0]?.created_at) {
-            setInterval(() => chatClass.getMessages(id, chatClass.messagesArray[0].created_at), 5000);
+            setInterval(() => chatClass.getMessages(id, chatClass.messagesArray[0].created_at).then(res => {
+                renderMessages(res, chatClass.userId, chatMessagesDiv, true)
+            }), 5000);
         }
     } catch (error) {
         console.error(error);
@@ -24,9 +26,13 @@ async function initializeChat() {
 }
 
 function setupEventListeners() {
-    sendButton?.addEventListener("click", () => chatClass.sendMessage(chatInput.value, id));
+    sendButton?.addEventListener("click", () => chatClass.sendMessage(chatInput.value, id).then((res) => {
+        renderMessages(res, chatClass.userId, chatMessagesDiv, true)
+    }));
     chatInput?.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') chatClass.sendMessage(chatInput.value, id).then(() => console.log(chatClass.messagesArray));
+        if (event.key === 'Enter') chatClass.sendMessage(chatInput.value, id).then((res) => {
+            renderMessages(res, chatClass.userId, chatMessagesDiv, true)
+        });
     });
 
     chatMessagesContainer?.addEventListener('scroll', () => {
@@ -34,9 +40,9 @@ function setupEventListeners() {
             const lastMessageDate = chatClass.messagesArray[chatClass.messagesArray.length - 1].created_at;
             chatClass.getMessages(id, lastMessageDate, true).then((res) => {
                 if (!res) {
-                    console.log('end of tunnel');
+                    x``
                 }
-                renderMessages(chatClass.messagesArray, chatClass.userId, chatMessagesDiv);
+                renderMessages(res, chatClass.userId, chatMessagesDiv);
             });
         }
     });

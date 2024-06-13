@@ -34,6 +34,7 @@
         overflow: scroll;
         height: 100%;
         padding: 20px;
+        overscroll-behavior: none;
     }
 
     .chat-message {
