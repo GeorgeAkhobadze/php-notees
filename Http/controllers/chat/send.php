@@ -17,11 +17,3 @@ $messages = $db->query('INSERT INTO chatroom_texts(message, user_id, chatroom_id
     'message' => $data['message'],
     'userId' => $user['id']
 ]);
-
-//$id = $messages->lastInsertId();
-//
-//$message= $db->query('SELECT * FROM chatroom_texts WHERE id = :id', [
-//    "id"=>$id
-//]);
-//
-//dd($messages);
